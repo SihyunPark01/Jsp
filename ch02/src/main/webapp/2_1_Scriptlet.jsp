@@ -32,13 +32,13 @@
 	String var4 = "hello"; //참조형타입
 	
 	out.print("<h4>var1 : "+var1+"</h4>");
-	out.print("<h4>var2 : "+var2+"</h4>");
+	out.print("<h4>var2 : "+var2+"</h4>"); //자바에서 출력은 이런식으로 하지
 	
 	%>
 	
 	<%-- 표현식(Expression) 출력  (jsp에서의 주석은 이렇게 씀.)--%>
 	<h4>var3: <%= var3 %></h4> <%--var3라는 문법을 표현식으로 출력한다 --%>
-	<h4>var4: <%= var4 %></h4>
+	<h4>var4: <%= var4 %></h4> <!-- 하지만 이런식으로 표현식으로 출력해도 됨 -->
 	
 	
 	
