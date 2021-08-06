@@ -4,11 +4,12 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 
 
+
 <%
 //태그 다 지우고 여기까지가 준비단계
 	
 	request.setCharacterEncoding("UTF-8"); 
-	String uid = request.getParameter("uid");
+	String custid = request.getParameter("custid");
 
 
 	//DB 정보
@@ -27,7 +28,7 @@
 	Statement stmt = conn.createStatement();
 	
 	//4단계
-	String sql = "DELETE FROM `user1` WHERE `uid`='"+uid+"';"; //select.jsp에서 삭제할 아이디를 받아와야하지
+	String sql = "DELETE FROM `Customer` WHERE `custid`='"+custid+"';"; //select.jsp에서 삭제할 아이디를 받아와야하지
 	stmt.executeUpdate(sql);
 	
 	//5단계
@@ -43,8 +44,7 @@
 	}
 	
 	//리다이렉트
-		response.sendRedirect("./4_2_Select.jsp");
+		response.sendRedirect("../list.jsp");
 
 
 %>
-

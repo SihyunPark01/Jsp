@@ -1,11 +1,14 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page import="bean.User1Bean"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="bean.User2Bean"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+
+
+
 <%
 
 		//DB 정보
@@ -13,7 +16,7 @@
 		String user = "maro02260226";
 		String pass = "1234";
 
-		List<User1Bean> users = new ArrayList<>(); //arraylist는 제네릭클래스임..제네릭변수가 뭔지 공부하자
+		List<User2Bean> users = new ArrayList<>(); 
 		
 		
 	try{
@@ -23,13 +26,11 @@
 		//2단계
 		Connection conn = DriverManager.getConnection(host, user, pass);
 		
-		
 		//3단계
 		Statement stmt = conn.createStatement();
 		
-		
 		//4단계
-		String sql = "SELECT * FROM `user1`;"; //이거 ``로 해야돼 ''는 안돼!!!!!!!!!
+		String sql = "SELECT * FROM `Customer`;"; 
 /*****/	ResultSet rs = stmt.executeQuery(sql); //insert문은 executeUpdate로 실행하고 select문은 executeQuery로 실행해야 함.
 		//rs라는 객체에다 디비데이터 하나하나객체를 담았음 ///설명 카톡에!		
 
@@ -44,15 +45,15 @@
 			int age = ; 
 			*/
 			
-			User1Bean ub = new User1Bean(); //ub에는 지금 데이터가 하나도 없지?
-			ub.setUid(rs.getString(1));
+			User2Bean ub = new User2Bean(); //ub에는 지금 데이터가 하나도 없지?
+			ub.setCustid(rs.getInt(1));
 			ub.setName(rs.getString(2));
-			ub.setHp(rs.getString(3));
-			ub.setAge(rs.getInt(4));
+			ub.setAddress(rs.getString(3));
+			ub.setPhone(rs.getString(4));
 			
 			users.add(ub);
 	
-		}
+		} 
 			
 		//6단계
 		rs.close();
@@ -67,46 +68,48 @@
 
 %>
 
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>4_2_Select.jsp</title>
+	<title>list</title>
 </head>
 <body>
-	<h3>2.Jsp Select 실습하기</h3>
-	
-	<a href="./4_1_Insert.jsp">사용자 등록</a>
-	
-	
-	<h4>사용자 목록</h4>
-	<table border = "1">
+	<h3>고객목록</h3>
+	<a href="./register.jsp"> 고객등록 </a>
+	<table border="1">
 		<tr>
 			<th>아이디</th>
 			<th>이름</th>
+			<th>주소</th>
 			<th>휴대폰</th>
-			<th>나이</th>
-			<th>관리</th>
+			<th>기타</th>
 		</tr>
 		
 		<%
-			for(User1Bean ub : users){
+			for(User2Bean ub : users){
 		%>
-		
+			
 		<tr>
-			<td><%= ub.getUid() %></td>
+			<td><%= ub.getCustid() %></td>
 			<td><%= ub.getName() %></td>
-			<td><%= ub.getHp() %></td>
-			<td><%= ub.getAge() %></td>
+			<td><%= ub.getAddress() %></td>
+			<td><%= ub.getPhone() %></td>
 			<td>
-				<a href="./4_4_Update.jsp?uid=<%= ub.getUid() %>">수정</a>	<!-- 수정할 아이디(파라미터)를 심어놓는 것임 -->
-				<a href="./4_3_Delete.jsp?uid=<%= ub.getUid() %>">삭제</a> <!-- 삭제할 아이디를 심어놓는 것임 -->
+				<a href="./modify.jsp?custid=<%= ub.getCustid() %>">수정</a>
+				<a href="./proc/delete.jsp?custid=<%= ub.getCustid() %>">삭제</a>
 			</td>
 		</tr>
 		<%
 			}
 		
 		%>
+	
 	</table>
+	
+
 </body>
 </html>

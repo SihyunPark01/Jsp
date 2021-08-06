@@ -3,30 +3,26 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>4_1_Insert</title>
+	<title>register</title>
 </head>
 <body>
-	<h3>1.Jsp Insert 실습하기</h3>
+	<h3>고객등록</h3>
 	
-	<h4>User 등록</h4>
-	<form action="./proc/insertProc.jsp" method="post">
+	<form action="./proc/registerProc.jsp" method="post">
 		
 	<table border="1">
-		<tr>
-			<td>아이디</td>
-			<td><input type="text" name="uid"/></td>
-		</tr>
+		
 		<tr>
 			<td>이름</td>
 			<td><input type="text" name="name"/></td>
 		</tr>
 		<tr>
-			<td>휴대폰</td>
-			<td><input type="text" name="hp"/></td>
+			<td>주소</td>
+			<td><input type="text" name="address"/></td>
 		</tr>
 		<tr>
-			<td>나이</td>
-			<td><input type="text" name="age"/></td>
+			<td>휴대폰</td>
+			<td><input type="text" name="phone"/></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
@@ -36,7 +32,6 @@
 	
 	</table>
 </form>
-
 
 </body>
 </html>
