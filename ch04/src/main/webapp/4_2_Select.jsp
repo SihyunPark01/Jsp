@@ -100,7 +100,7 @@
 			<td><%= ub.getAge() %></td>
 			<td>
 				<a href="#">수정</a>
-				<a href="#">삭제</a>
+				<a href="./4_3_Delete.jsp?uid=<%= ub.getUid() %>">삭제</a> <!-- 삭제할 아이디를 심어놓는 것임 -->
 			</td>
 		</tr>
 		<%
