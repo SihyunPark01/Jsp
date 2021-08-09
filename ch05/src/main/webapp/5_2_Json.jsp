@@ -14,7 +14,6 @@
 	String[] users = {user1, user2, user3, user4, user5};
 			
 	out.print(Arrays.deepToString(users)); //자바함수 사용
-		
 	//이렇게 해도 되지만 라이브러리를 쓰는게 훨씬 편하지...maven repository사이트에서 gson jar파일 다운받기
 	//다운받아서 WEB_INF의 lib에 붙여넣기
 

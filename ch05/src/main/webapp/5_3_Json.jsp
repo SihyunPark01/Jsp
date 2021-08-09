@@ -39,7 +39,7 @@
 		mb.setHp(rs.getString(3));
 		mb.setPos(rs.getString(4));
 		mb.setDep(rs.getInt(5));
-		mb.setRdate(rs.getString(6));
+		mb.setRdate(rs.getString(6)); 
 	
 	//list객체 위에 선언하고 왔기 때문에
 		members.add(mb);
