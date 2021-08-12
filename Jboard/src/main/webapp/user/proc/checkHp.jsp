@@ -1,4 +1,6 @@
 
+<%@page import="kr.co.jboard.db.Sql"%>
+<%@page import="kr.co.jboard.db.DBConfig"%>
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -22,15 +24,12 @@
 	
 	try{
 		
-		//1단계
-		Class.forName("com.mysql.jdbc.Driver");		
-		
-		//2단계
-		Connection conn = DriverManager.getConnection(host, user, pass);
+		//1~2단계
+		Connection conn = DBConfig.getInstance().getConnection();
 				
 		//3단계
-		String sql = "SELECT COUNT(`hp`) FROM `Jboard_member` WHERE `hp`=?;";
-		PreparedStatement psmt = conn.prepareStatement(sql);
+		
+		PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_COUNT_HP);
 		psmt.setString(1, hp);
 		
 		//4단계

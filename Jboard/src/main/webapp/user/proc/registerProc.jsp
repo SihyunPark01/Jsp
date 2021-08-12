@@ -1,3 +1,5 @@
+<%@page import="kr.co.jboard.db.Sql"%>
+<%@page import="kr.co.jboard.db.DBConfig"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -19,32 +21,16 @@
 	String addr2 = request.getParameter("addr2");
 	String regip = request.getRemoteAddr();
 
-	//DB정보
-	String host = "jdbc:mysql://54.180.160.240:3306/maro02260226";
-	String user = "maro02260226";
-	String pass = "1234";
+	
 	
 	try{
-		//1단계
-		Class.forName("com.mysql.jdbc.Driver");
-		//2단계
-		Connection conn = DriverManager.getConnection(host, user, pass);
-		//3단계
+		//1~2단계
+				Connection conn = DBConfig.getInstance().getConnection();
 		
-		String sql = "INSERT INTO `Jboard_member` SET ";
-				sql += "`uid`=?,";
-				sql += "`pass`=PASSWORD(?),"; //DB에 있는 컬럼명이란 말이야? / 암호화작업 (보통은 라이브러리 다운받아 함)
-				sql += "`name`=?,";
-				sql += "`nick`=?,";
-				sql += "`email`=?,";
-				sql += "`hp`=?,";		//grade는 default값 2라 뺐음
-				sql += "`zip`=?,";
-				sql += "`addr1`=?,";
-				sql += "`addr2`=?,";
-				sql += "`regip`=?,"; 
-				sql += "`rdate`=NOW();";
+		//3단계 Sql.java로 복붙중 왜냐면 SQL문은 모아두는게 좋거든. 모든 SQL문 다 모아두는 작업 진행.
+		
 
-		PreparedStatement psmt = conn.prepareStatement(sql);
+		PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_MEMBER);
 		psmt.setString(1, uid);
 		psmt.setString(2, pass1);		//내가 위에서 정의내려준 변수이름이란말이야?
 		psmt.setString(3, name);

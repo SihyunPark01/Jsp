@@ -11,111 +11,19 @@
     
     <!-- 요거 꼭 추가해야함!!! -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-    	$(document).ready(function(){
-    		
-    		//아이디 중복체크
-    		$('input[name=uid]').focusout(function(){
-    			
-    			var uid = $(this).val();
-    			
-    			//DB에서 가져와서 아이디 있는지 없는지 확인해봐야하는 작업
-    			$.ajax({
-    				url: '/Jboard/user/proc/checkUid.jsp?uid='+uid,
-    				type: 'get',
-    				dataType: 'json',
-    				success: function(data){
-    					
-    					if(data.result == 1){
-    						// alert('이미 사용중인 아이디 입니다.');
-    						$('.resultId').css('color', 'red').text('이미 사용중인 아이디 입니다.');
-    					}else{
-    						$('.resultId').css('color', 'green').text('사용 가능한 아이디 입니다.');
-    					}
-    				}	
-    				
-    			});
-  			
-    		});
-  		
-    		//닉네임 중복 체크
-    		$('input[name=nick]').focusout(function(){
-    			
-    			var nick = $(this).val();
-    			
-    			//DB에서 가져와서 아이디 있는지 없는지 확인해봐야하는 작업
-    			$.ajax({
-    				url: '/Jboard/user/proc/checkNick.jsp?nick='+nick,
-    				type: 'get',
-    				dataType: 'json',
-    				success: function(data){
-    					
-    					if(data.result == 1){
-    						// alert('이미 사용중인 아이디 입니다.');
-    						$('.resultNick').css('color', 'red').text('이미 사용중인 닉네임 입니다.');
-    					}else{
-    						$('.resultNick').css('color', 'green').text('사용 가능한 닉네임 입니다.');
-    					}
-    				}	
-    				
-    			});
-  			
-    		});
-    		//이메일 중복 체크
-    		$('input[name=email]').focusout(function(){
-    			
-    			var email = $(this).val();
-    			
-    			//DB에서 가져와서 아이디 있는지 없는지 확인해봐야하는 작업
-    			$.ajax({
-    				url: '/Jboard/user/proc/checkEmail.jsp?email='+email,
-    				type: 'get',
-    				dataType: 'json',
-    				success: function(data){
-    					
-    					if(data.result == 1){
-    						// alert('이미 사용중인 아이디 입니다.');
-    						$('.resultEmail').css('color', 'red').text('이미 사용중인 이메일 입니다.');
-    					}else{
-    						$('.resultEmail').css('color', 'green').text('사용 가능한 이메일 입니다.');
-    					}
-    				}	
-    				
-    			});
-  			
-    		});
-    		//휴대폰 중복 체크
-				$('input[name=hp]').focusout(function(){
-    			
-    			var hp = $(this).val();
-    			
-    			//DB에서 가져와서 아이디 있는지 없는지 확인해봐야하는 작업
-    			$.ajax({
-    				url: '/Jboard/user/proc/checkHp.jsp?hp='+hp,
-    				type: 'get',
-    				dataType: 'json',
-    				success: function(data){
-    					
-    					if(data.result == 1){
-    						// alert('이미 사용중인 아이디 입니다.');
-    						$('.resultHp').css('color', 'blue').text('이미 사용중인 번호입니다.');
-    					}else{
-    						$('.resultHp').css('color', 'gray').text('사용 가능한 번호입니다.');
-    					}
-    				}	
-    				
-    			});
-  			
-    		});
-			
-       		
-    	});
-    	
-    
-    
-    </script>
-    
+    <script src="/Jboard/js/checkUser.js"></script>   <!-- js에 checkUser로 옮기고 이렇게 링크 적어줘야지 -->
+    <!-- 복붙하는 순서가 중요함 -->
+ 
+    <!-- 다음 우편번호 서비스에서 가져온 소스 복붙 후 함수 이름 zipcode로 바꿔줌 -> 이거 zipcode.js파일로 옮김-->
+  	 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  	 <script src="/Jboard/js/zipcode.js"></script>
+  	 <script src="/Jboard/js/validation.js"></script>
+  	 
+  	 
+  	 
+  	 
 </head>
+
 <body>
     <div id="wrapper">
         <section id="user" class="register">
@@ -148,8 +56,9 @@
                     <tr>
                         <td>이름</td>
                         <td>
-                            <input type="text" name="name" placeholder="이름 입력"/>                            
-                        </td>
+                            <input type="text" name="name" placeholder="이름 입력"/>
+                             <span class="resultName"></span> 
+						</td>
                     </tr>
                     <tr>
                         <td>별명</td>
@@ -177,14 +86,16 @@
                         <td>주소</td>
                         <td>
                             <div>
-                                <input type="text" name="zip" placeholder="우편번호" readonly/>
-                                <button class="btnZip">주소검색</button>
+                                <input type="text" id="zip" name="zip" placeholder="우편번호" readonly/>
+                                <button type="button" class="btnZip" onclick="zipcode()">주소검색</button>
                             </div>                            
                             <div>
-                                <input type="text" name="addr1" placeholder="주소를 검색하세요." readonly/>
+                                <input type="text" id="addr1" name="addr1" placeholder="주소를 검색하세요." readonly/>
+                                
                             </div>
                             <div>
-                                <input type="text" name="addr2" placeholder="상세주소를 입력하세요."/>
+                                <input type="text" id="addr2" name="addr2" placeholder="상세주소를 입력하세요."/>
+                             
                             </div>
                         </td>
                     </tr>

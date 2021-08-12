@@ -1,3 +1,5 @@
+<%@page import="kr.co.jboard.db.Sql"%>
+<%@page import="kr.co.jboard.db.DBConfig"%>
 <%@page import="kr.co.jboard.bean.TermsBean"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -12,21 +14,17 @@
 
 		TermsBean tb = new TermsBean();
 	try{
+	
 		
-		//1단계
-		Class.forName("com.mysql.jdbc.Driver");
-		
-		//2단계
-		Connection conn = DriverManager.getConnection(host, user, pass);
+		//1~2단계
+		Connection conn = DBConfig.getInstance().getConnection();
 		
 		//3단계
 		Statement stmt = conn.createStatement();
 		
 		
 		//4단계 이거 외우자!!!!!!!!
-				
-		String sql = "SELECT * FROM `Jboard_terms`;";
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery(Sql.SELECT_TERMS);
 		
 		
 		//5단계
