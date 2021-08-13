@@ -22,7 +22,7 @@
 	
 	try{
 		//1~2단계
-				Connection conn = DBConfig.getInstance().getConnection();
+		Connection conn = DBConfig.getInstance().getConnection();
 		//3단계
 		
 		PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_COUNT_NICK);

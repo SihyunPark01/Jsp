@@ -7,7 +7,9 @@ public class Sql {
 	//sql문을 복붙해옴. 대신 각각 jsp파일에는 Sql(클래스명).SELECT_TERMS(변수명)이런식으로 변경해주기.
 	//사용자 관련
 	public static final String SELECT_TERMS = "SELECT * FROM `Jboard_terms`;";
-
+														//			?자리에다 uid와 pass 데이터를 맵핑함 
+	public static final String SELECT_MEMBER = "SELECT * FROM `Jboard_member` WHERE `uid`=? AND `pass`=PASSWORD(?);";
+	
 	public static final String INSERT_MEMBER = "INSERT INTO `Jboard_member` SET "
 			 +"`uid`=?,"
 			 +"`pass`=PASSWORD(?)," //DB에 있는 컬럼명이란 말이야? / 암호화작업 (보통은 라이브러리 다운받아 함)
@@ -23,14 +25,13 @@ public class Sql {
 	
 	
 	
-	public static final String SELECT_COUNT_UID = "SELECT COUNT(`uid`) FROM `Jboard_member` WHERE `uid`=?;";
+	public static final String SELECT_COUNT_UID   = "SELECT COUNT(`uid`) 	FROM `Jboard_member` WHERE `uid`=?;";
+	public static final String SELECT_COUNT_NICK  = "SELECT COUNT(`nick`) 	FROM `Jboard_member` WHERE `nick`=?;"; //select에서 count활용 1이면 1개있음, 0이면 없음
+	public static final String SELECT_COUNT_HP 	  = "SELECT COUNT(`hp`) 	FROM `Jboard_member` WHERE `hp`=?;";
+	public static final String SELECT_COUNT_EMAIL = "SELECT COUNT(`email`) 	FROM `Jboard_member` WHERE `email`=?;";
 	
-	public static final String SELECT_COUNT_NICK = "SELECT COUNT(`nick`) FROM `Jboard_member` WHERE `nick`=?;"; //select에서 count활용 1이면 1개있음, 0이면 없음
 	
-	public static final String SELECT_COUNT_EMAIL = "SELECT COUNT(`email`) FROM `Jboard_member` WHERE `email`=?;";
-	
-	public static final String SELECT_COUNT_HP = "SELECT COUNT(`hp`) FROM `Jboard_member` WHERE `hp`=?;";
-	
+
 	
 	
 	

@@ -1,11 +1,20 @@
+<%@page import="kr.co.jboard.bean.MemberBean"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%
+	MemberBean mb = (MemberBean) session.getAttribute("sessMember");
+	
+	if(mb == null){
+		// 로그인을 하지 않고 list 페이지를 요청했을 때
+		response.sendRedirect("/Jboard/user/login.jsp?success=102");
+		return;
+	}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>글목록</title>
-    <link rel="stylesheet" href="./css/style.css">    
+    <link rel="stylesheet" href="/Jboard/css/style.css">    
 </head>
 <body>
     <div id="wrapper">
@@ -13,8 +22,8 @@
             <h3>글목록</h3>
             <article>
                 <p>
-                    홍길동님 반갑습니다.
-                    <a href="./user/login.html" class="logout">[로그아웃]</a>
+                    <%= mb.getNick() %>님 반갑습니다.
+                    <a href="/Jboard/user/proc/logoutProc.jsp" class="logout">[로그아웃]</a>
                 </p>
                 <table border="0">
                     <tr>

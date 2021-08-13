@@ -22,7 +22,7 @@
 	
 	try{
 		//1~2단계
-				Connection conn = DBConfig.getInstance().getConnection();
+		Connection conn = DBConfig.getInstance().getConnection();
 		//3단계 ----- preparedStatement는 sql문 선언을 3단계에서 해줌.
 		 //select에서 count활용 1이면 1개있음, 0이면 없음
 		PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_COUNT_UID);
