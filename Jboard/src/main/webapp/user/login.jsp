@@ -18,6 +18,8 @@
     		alert('정상적으로 로그아웃이 되었습니다.');
     	}else if(success == 102){
     		alert('먼저 로그인을 하셔야 합니다.');
+    	}else if(success == 103){
+    		alert('글 작성을 위해 로그인을 하셔야 합니다.');
     	}
     </script>
     

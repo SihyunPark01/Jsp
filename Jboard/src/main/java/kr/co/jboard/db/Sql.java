@@ -24,6 +24,20 @@ public class Sql {
 			 +"`rdate`=NOW();";
 	
 	
+//	public static final String INSERT_ARTICLE = "INSERT INTO `Jboard_article` SET "
+//	//		 +"`seq`=?,"  				
+//	//		 +"`parent`?," 		얘네는 모두 default값
+//	//		 +"`comment`=?,"
+//	//		 +"`cate`=?,"
+//			 +"`title`=?,"
+//			 +"`content`=?,"		//grade는 default값 2라 뺐음
+//	//		 +"`file`=?,"  			//그냥 0으로 둘거라서
+//	//		 +"`hit`=?,"			//그냥 0으로 둘거라서
+//			 +"`uid`=?,"
+//			 +"`regip`=?," 
+//			 +"`rdate`=NOW();";
+	
+	
 	
 	public static final String SELECT_COUNT_UID   = "SELECT COUNT(`uid`) 	FROM `Jboard_member` WHERE `uid`=?;";
 	public static final String SELECT_COUNT_NICK  = "SELECT COUNT(`nick`) 	FROM `Jboard_member` WHERE `nick`=?;"; //select에서 count활용 1이면 1개있음, 0이면 없음
@@ -31,10 +45,24 @@ public class Sql {
 	public static final String SELECT_COUNT_EMAIL = "SELECT COUNT(`email`) 	FROM `Jboard_member` WHERE `email`=?;";
 	
 	
+	//게시판 관련
+	public static final String SELECT_MAX_SEQ = "SELECT MAX(`seq`) from `Jboard_article`;";	
+	
+	
+	
+	public static final String INSERT_ARTICLE = "INSERT INTO `Jboard_article` SET "
+												+ "`title`=?,"
+												+ "`content`=?,"
+												+ "`file`=?,"
+												+ "`uid`=?,"
+												+ "`regip`=?,"
+												+ "`rdate`=NOW();";
 
-	
-	
-	
-	
+	public static final String INSERT_FILE = "INSERT INTO `Jboard_file` SET "
+											+ "`parent`=?,"
+											+ "`oriName`=?,"
+											+ "`newName`=?,"
+											+ "`rdate`=NOW();";
+								
 	
 }
