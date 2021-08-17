@@ -8,7 +8,9 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="kr.co.jboard.db.DBConfig"%>
 <%@page import="kr.co.jboard.bean.MemberBean"%>
+
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%
 	MemberBean mb = (MemberBean) session.getAttribute("sessMember");
 	
@@ -21,9 +23,7 @@
 	//전송데이터 수신
 	request.setCharacterEncoding("UTF-8");
 	String pg = request.getParameter("pg");
-	
-	
-	
+
 	// 페이지 처리 -----> list페이지가 너무 복잡해지니까 새로운 모듈을 하나 만들자 ArticleDao클래스~~~
 	int start = 0;
 	int currentPage = Integer.parseInt(pg); //pg 페이지를 숫자로 변환, 로그인해서 list페이지로 들어올때 pg를 보내니까 오류가 날 수 있음.
@@ -43,6 +43,8 @@
 	
 	int pageStartNum = total - start;
 	
+	
+	//페이지번호 그룹처리
 	int groupCurrent = (int)Math.ceil(currentPage / 10.0); //현재페이지의 그룹번호, 올림처리해버려야
 	int groupStart = (groupCurrent - 1) * 10 + 1;
 	int groupEnd = groupCurrent * 10;

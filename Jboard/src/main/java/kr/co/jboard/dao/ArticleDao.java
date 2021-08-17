@@ -64,6 +64,7 @@ public class ArticleDao {
 		//3단계
 		PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_ARTICLES); //이작업하기위해 sql클래스로 가서 선언해주고
 		psmt.setInt(1, start);
+		
 		//4단계
 		ResultSet rs = psmt.executeQuery();
 		
