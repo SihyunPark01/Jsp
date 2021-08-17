@@ -1,7 +1,7 @@
 <%@page import="kr.co.jboard.bean.MemberBean"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-		//프로젝트 시작처리 페이지
+		//프로젝트 시작처리 페이지 / session table에 접근해야지!!!
 		MemberBean mb = (MemberBean)session.getAttribute("sessMember");
 			
 		if(mb == null){

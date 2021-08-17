@@ -9,8 +9,8 @@
     <title>회원가입</title>
     <link rel="stylesheet" href="/Jboard/css/style.css"/>
     
-    <!-- 요거 꼭 추가해야함!!! -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- 요거 꼭 추가해야함!!! jquery google 검색해서 library 긁어오기 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
     <script src="/Jboard/js/checkUser.js"></script>   <!-- js에 checkUser로 옮기고 이렇게 링크 적어줘야지 -->
     <!-- 복붙하는 순서가 중요함 -->
  

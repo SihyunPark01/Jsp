@@ -46,9 +46,18 @@ public class Sql {
 	
 	
 	//게시판 관련
-	public static final String SELECT_MAX_SEQ = "SELECT MAX(`seq`) from `Jboard_article`;";	
+	public static final String SELECT_COUNT_TOTAL = "SELECT COUNT(`seq`) FROM `Jboard_article`;";
+
 	
+	public static final String SELECT_MAX_SEQ = "SELECT MAX(`seq`) FROM `Jboard_article`;";	
 	
+	public static final String SELECT_ARTICLES = "SELECT a.*, b.nick FROM `Jboard_article` AS a "
+												+ "JOIN `Jboard_member` AS b "
+												+ "ON a.uid = b.uid "
+												+ "ORDER BY `seq` DESC "
+												+ "LIMIT ?, 10; ";
+												
+												
 	
 	public static final String INSERT_ARTICLE = "INSERT INTO `Jboard_article` SET "
 												+ "`title`=?,"

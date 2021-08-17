@@ -15,19 +15,19 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
-	//Multipart 전송 데이터 수신(파일 업로드와 동시에 처리)
+	//Multipart(파일전송폼) 전송 데이터 수신(파일 업로드와 동시에 처리)
 	String path = request.getServletContext().getRealPath("/file");
 	int maxSize = 1024 * 1024 * 10; //최대 파일 허용량 10MB
 	
-	//파일 업로드는 이 한줄로 끝남 (cos라이브러리를 썼기때문에) cos lib에 추가하는것!
+	//파일 업로드는 이 한줄로 끝남 (cos라이브러리를 썼기때문에) cos lib에 추가한 후!
 	MultipartRequest mRequest = new MultipartRequest(request, path, maxSize, "UTF-8", new DefaultFileRenamePolicy());
- 	
+		
 	
 	String uid = mRequest.getParameter("uid");
 	String title = mRequest.getParameter("title");
 	String content = mRequest.getParameter("content");
 	String fname = mRequest.getFilesystemName("fname"); //fname은 첨부하는 파일의 이름텍스트임! 그래서 getParameter대신 저거써야함.
-	String regip = request.getRemoteAddr();
+	String regip = request.getRemoteAddr(); //regip은 getRemoteAddr()이거 쓰더라
 	
 	int seq = 0;
 	
@@ -40,14 +40,14 @@
 		PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_ARTICLE);
 		psmt.setString(1, title);
 		psmt.setString(2, content);
-		psmt.setInt(3, fname == null ? 0 : 1);
+		psmt.setInt(3, fname == null ? 0 : 1); //그래서 table에 파일이 첨부되면 1이 뜸.
 		psmt.setString(4, uid);
 		psmt.setString(5, regip);
 		
 		
 		//4단계
 		psmt.executeUpdate();//insert하자마자 생성되는 글번호를 
-		ResultSet rs = stmt.executeQuery(Sql.SELECT_MAX_SEQ); //바로 그 글번호만 가져오기.이거 바로 이어서 거는게 중요함!!!  트랜잭션 거는게 있음. 		
+		ResultSet rs = stmt.executeQuery(Sql.SELECT_MAX_SEQ); //바로 그 글번호만 가져오기.이거 바로 이어서 거는게 중요함!!!  트랜잭션 거는게 있지만 우린 하지 않겠음. 		
 		
 		//5단계
 		if(rs.next()){

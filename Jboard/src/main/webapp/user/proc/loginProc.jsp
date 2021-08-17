@@ -58,7 +58,7 @@
 		session.setAttribute("sessMember", mb);
 		
 		// 리다이렉트
-		response.sendRedirect("/Jboard/list.jsp");
+		response.sendRedirect("/Jboard/list.jsp?pg=1");
 		
 	}else{
 		// 회원이 아닐 경우
