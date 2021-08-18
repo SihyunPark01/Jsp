@@ -13,10 +13,19 @@ public class ArticleBean {
 	private String uid;
 	private String regip;
 	private String rdate;
+	
+	//추가필드
 	private String nick;
 	
+	private FileBean fb; //게터 세터 만들어야함
+	//rdate 중복되니 파일빈을 만들자 그리고 윗작업을 하자
 	
-	
+	public FileBean getFb() {
+		return fb;
+	}
+	public void setFb(FileBean fb) {
+		this.fb = fb;
+	}
 	
 	public String getNick() {
 		return nick;
@@ -35,6 +44,9 @@ public class ArticleBean {
 	}
 	public void setParent(int parent) {
 		this.parent = parent;
+	}
+	public void setParent(String parent) {
+		this.parent = Integer.parseInt(parent);
 	}
 	public int getComment() {
 		return comment;

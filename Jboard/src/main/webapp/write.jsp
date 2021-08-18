@@ -9,6 +9,10 @@
 		response.sendRedirect("/Jboard/user/login.jsp?success=103");
 		return;
 	}
+	
+	request.setCharacterEncoding("UTF-8");
+	String pg = request.getParameter("pg");
+	
 %>
 
 
