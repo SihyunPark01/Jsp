@@ -205,7 +205,9 @@ public class ArticleDao {
 	
 	public void insertArticle() {}
 	
-	public void insertComment(ArticleBean ab /*int parent, String content, String uid, String regip 이렇게선언하면 너무 기니까*/) {
+	
+								/*int parent, String content, String uid, String regip 이렇게선언하면 너무 기니까*/
+	public void insertComment(ArticleBean ab) {
 		
 		try{
 			//1,2단계
@@ -233,7 +235,22 @@ public class ArticleDao {
 		
 	}
 	
-	public void updateArticle() {}
+	//이게 무슨 작업일까?
+	public void updateArticle(String title, String content, String seq) {
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE);
+			psmt.setString(1, title);
+			psmt.setString(2, content);
+			psmt.setString(3, seq);
+			
+			psmt.executeUpdate();
+			conn.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void updateArticleHit(String seq) { //조회수 카운트되게끔
 		try{
@@ -258,31 +275,74 @@ public class ArticleDao {
 		
 	}
 	
-	public void updateCommentCount(String parent) { //댓글수 카운트되게끔
+	public void updateCommentCount(String parent, int type) {
+		try{
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = null;
+			if(type > 0) {
+				psmt = conn.prepareStatement(Sql.UPDATE_COMMENT_COUNT_PLUS);
+			}else {
+				psmt = conn.prepareStatement(Sql.UPDATE_COMMENT_COUNT_MINUS);
+			}
+			psmt.setString(1, parent);
+			psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+public int updateComment(String content, String seq) {
+		
+		int result = 0;
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_COMMENT);
+			psmt.setString(1, content);
+			psmt.setString(2, seq);
+			result = psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public void deleteArticle(String seq) {
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_ARTICLE);
+			psmt.setString(1, seq);
+			psmt.executeUpdate();
+			conn.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
+	public void deleteComment(String seq) {
+		
 		try{
 			//1,2단계
 			Connection conn = DBConfig.getInstance().getConnection();
+			
 			//3단계
-			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_COMMENT_COUNT); //sql정의하러감
-			psmt.setString(1, parent);
-			
-			//4단계
+			PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_COMMENT);
+			psmt.setString(1, seq);
 			psmt.executeUpdate();
-			
-			//5단계
-			//6단계
-			
 			psmt.close();
-			conn.close();		
+			conn.close();
 			
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	
 	}
-	
-	
-	public void deleteArticle() {}
-	
 	
 }

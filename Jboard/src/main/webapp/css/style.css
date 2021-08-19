@@ -232,6 +232,12 @@ body {}
 #board .btnModify { padding: 8px; border: 1px solid #bebebe; background: #fdfdfd; color: #111;}
 #board .btnList   { padding: 8px; border: 1px solid #bebebe; background: #fdfdfd; color: #111;}
 
+#board .btnCommentDel    {} 
+#board .btnCommentModify {} 
+#board .btnCommentCancel {display: none;} 
+
+
+
 /* 게시판 - 글목록 */
 #board.list {
     position: relative;
