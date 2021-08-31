@@ -1,5 +1,17 @@
+<%@page import="kr.co.farmstory1.bean.ArticleBean"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.co.farmstory1.dao.ArticleDao"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
+<%
+	//최신글 가져오기
+	ArticleDao dao = ArticleDao.getInstance();
+
+	List<ArticleBean> latestGrow = dao.selectLatest("grow");
+	List<ArticleBean> latestSchool = dao.selectLatest("school");
+	List<ArticleBean> latestStory = dao.selectLatest("story");
+%>
+
 
  <main>
      <div class="slider">
@@ -32,99 +44,45 @@
      </div>
      <div class="latest">
          <article>
-             <a href="#"><img src="/Farmstory1/img/main_latest1_tit.png" alt="텃밭가꾸기"/></a>
-             <img src="/Farmstory1/img/main_latest1_img.jpg" alt="과일1"/>
+             <a href="/Farmstory1/croptalk/grow.jsp"><img src="/Farmstory1/img/main_latest1_tit.png" alt="텃밭가꾸기"/></a>
+             <img src="./img/main_latest1_img.jpg" alt="과일1"/>
              <table border="0">
+             	<% for(ArticleBean article : latestGrow){ %>
                  <tr>
                      <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
+                     <td><a href="/Farmstory1/croptalk/grow.jsp?mode=v&seq=<%= article.getSeq() %>"><%= article.getTitle() %></a></td>
+                     <td><%= article.getRdate().substring(2, 10) %></td>   
                  </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-
+                <% } %> 
              </table>
          </article>
          <article>
-             <a href="#"><img src="/Farmstory1/img/main_latest2_tit.png" alt="귀농학교"/></a>
+             <a href="/Farmstory1/croptalk/school.jsp"><img src="/Farmstory1/img/main_latest2_tit.png" alt="귀농학교"/></a>
              <img src="/Farmstory1/img/main_latest2_img.jpg" alt="절"/>
              <table border="0">
+                 <% for(ArticleBean article : latestSchool){ %>
                  <tr>
                      <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
+                     <td><a href="/Farmstory1/croptalk/school.jsp?mode=v&seq=<%= article.getSeq() %>"><%= article.getTitle() %></a></td>
+                     <td><%= article.getRdate().substring(2, 10) %></td>   
                  </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
+                <% } %> 
+                
 
              </table>
          </article>
          <article>
-             <a href="#"><img src="/Farmstory1/img/main_latest3_tit.png" alt="농작물이야기"/></a>
+             <a href="/Farmstory1/croptalk/story.jsp"><img src="/Farmstory1/img/main_latest3_tit.png" alt="농작물이야기"/></a>
              <img src="/Farmstory1/img/main_latest3_img.jpg" alt="풀"/>
              <table border="0">
+                 <% for(ArticleBean article : latestStory){ %>
                  <tr>
                      <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
+                     <td><a href="/Farmstory1/croptalk/story.jsp?mode=v&seq=<%= article.getSeq() %>"><%= article.getTitle() %></a></td>
+                     <td><%= article.getRdate().substring(2, 10) %></td>   
                  </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-                 <tr>
-                     <td>></td>
-                     <td>토마토! 건강하게 길러서</td>
-                     <td>21-08-23</td>   
-                 </tr>
-
+                <% } %> 
+                 
              </table>
          </article>
 

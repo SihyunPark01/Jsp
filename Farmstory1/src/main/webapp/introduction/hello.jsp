@@ -15,9 +15,9 @@
         <div><img src="../img/sub_top_tit1.png" alt="INTRODUCTION"/></div>
         <section>
             <aside>
-                <img src="../img/sub_aside_cate1_tit.png" alt=""/>
+                <img src="../img/sub_aside_cate1_tit.png" alt="팜스토리소개"/>
                 <ul>
-                    <li class="on"><a href="#">인사말</a></li>
+                    <li class="on"><a href="/Farmstory1/introduction/hello.jsp">인사말</a></li>
                     <li><a href="/Farmstory1/introduction/direction.jsp">찾아오시는길</a></li>
                 </ul>
             </aside>
@@ -33,11 +33,17 @@
 				<% if(mode.equals("l")){ %>
                 	<jsp:include page="../board/list.jsp"/>
 				<%}else if(mode.equals("w")){ %>
-					<jsp:include page="../board/write.jsp"/>
+					<jsp:include page="../board/write.jsp">
+						<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+					</jsp:include>
 				<%}else if(mode.equals("v")){ %>
-					<jsp:include page="../board/view.jsp"/>
+					<jsp:include page="../board/view.jsp">
+						<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+					</jsp:include>
 				<%}else if(mode.equals("m")){ %>
-					<jsp:include page="../board/modify.jsp"/>
+					<jsp:include page="../board/modify.jsp">
+						<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+					</jsp:include>
 				<%} %>
 
                 <!--내용 끝-->

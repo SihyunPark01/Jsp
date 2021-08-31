@@ -33,11 +33,17 @@
 				<% if(mode.equals("l")){ %>
                 	<jsp:include page="../board/list.jsp"/>
 				<%}else if(mode.equals("w")){ %>
-					<jsp:include page="../board/write.jsp"/>
+					<jsp:include page="../board/write.jsp">
+						<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+					</jsp:include>
 				<%}else if(mode.equals("v")){ %>
-					<jsp:include page="../board/view.jsp"/>
+					<jsp:include page="../board/view.jsp">
+						<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+					</jsp:include>
 				<%}else if(mode.equals("m")){ %>
-					<jsp:include page="../board/modify.jsp"/>
+					<jsp:include page="../board/modify.jsp">
+						<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+					</jsp:include>
 				<%} %>
 
              <!--내용 끝-->

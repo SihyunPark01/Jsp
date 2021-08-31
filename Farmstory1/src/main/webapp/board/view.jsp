@@ -1,60 +1,188 @@
+<%@page import="java.util.List"%>
+<%@page import="kr.co.farmstory1.bean.ArticleBean"%>
+<%@page import="kr.co.farmstory1.dao.ArticleDao"%>
+<%@page import="kr.co.farmstory1.bean.MemberBean"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
+	request.setCharacterEncoding("utf-8");
+	
 	String uri = request.getRequestURI();
+	String uid = request.getParameter("uid");
+	String seq = request.getParameter("seq");
+	
+	ArticleDao dao = ArticleDao.getInstance();
+	
+	// 조회수 업데이트
+	dao.updateArticleHit(seq);
+	// 글 가져오기
+	ArticleBean article = dao.selectArticle(seq);
+	// 댓글 가져오기
+	List<ArticleBean> comments = dao.selectComments(seq);
+	
 %>
+
+<script>
+	$(document).ready(function(){
+		
+		// 댓글 삭제
+		$('.btnCommentDel').click(function(){
+			var result = confirm('정말 삭제 하시겠습니까?');
+			return result;
+		});
+		
+		
+		var content = '';
+		
+		// 댓글 수정
+		$('.btnCommentModify').click(function(){
+			
+			var tag = $(this);
+			var mode = $(this).text();    			    			
+			var textarea = $(this).parent().prev();
+			
+			if(mode == '수정'){
+				// 수정모드
+				content = textarea.val(); 
+				
+				$(this).prev().css('display', 'none');
+				$(this).next().css('display', 'inline');
+				$(this).text('수정완료');
+				textarea.attr('readonly', false).focus();
+    			textarea.css({
+    				'background': 'white',
+    				'outline': '1px solid gray'
+    			});
+    			
+			}else{
+				// 수정완료 모드
+				
+				var seq     = textarea.attr('data-seq');
+				var comment = textarea.val(); 
+				
+				var jsonData = {
+						'seq': seq,
+						'comment': comment
+					};
+				
+				$.ajax({
+					url: '/Farmstory1/board/proc/updateCommentProc.jsp',
+					type: 'post',
+					data: jsonData,   // 서버로 전송하는 데이터(JSON) 지정
+					dataType: 'json', // 서버로 부터 전달되는 데이터 종류
+					success: function(data){
+						if(data.result == 1){
+							alert('댓글 수정이 성공 했습니다.');
+							
+							// 수정모드 해제
+							tag.text('수정');
+							tag.prev().css('display', 'inline');
+							tag.next().css('display', 'none');    			    			    							
+			    			textarea.attr('readonly', true);
+			    			textarea.css({
+			    				'background': 'transparent',
+			    				'outline': 'none'
+			    			});
+			    			
+						}else{
+							alert('댓글 수정이 실패 했습니다.');
+						}
+					}
+				});
+			}
+			return false;
+		});
+		
+		// 댓글 수정 취소
+		$('.btnCommentCancel').click(function(e){
+			e.preventDefault();
+			$(this).prev().text('수정');
+			$(this).prev().prev().css('display', 'inline');
+			$(this).css('display', 'none');
+			
+			var textarea = $(this).parent().prev();
+			
+			textarea.val(content);
+			textarea.attr('readonly', true);
+			textarea.css({
+				'background': 'transparent',
+				'outline': 'none'
+			});	
+		});
+		
+		
+	});
+</script>
 
 <section id="board" class="view">
     <h3>글보기</h3>
     <table>
         <tr>
             <td>제목</td>
-            <td><input type="text" name="title" value="제목입니다." readonly/></td>
+            <td><input type="text" name="title" value=<%= article.getTitle() %> readonly/></td>
         </tr>
+        <% if(article.getFile() == 1){ %>
         <tr>
             <td>첨부파일</td>
             <td>
-                <a href="#">2020년 상반기 매출자료.xls</a>
-                <span>7회 다운로드</span>
+                <a href="#"><%= article.getFb().getOriName() %></a>
+                <span><%= article.getFb().getDownload() %>회 다운로드</span>
             </td>
         </tr>
+        <% } %>
         <tr>
             <td>내용</td>
             <td>
-                <textarea name="content" readonly>내용 샘플입니다.</textarea>
+                <textarea name="content" readonly><%= article.getContent() %></textarea>
             </td>
         </tr>
     </table>
     <div>
-        <a href="#" class="btnDelete">삭제</a>
-        <a href="<%= uri %>?mode=m" class="btnModify">수정</a>
-        <a href="<%= uri %>?mode=l" class="btnList">목록</a>
+        <% if(uid.equals(article.getUid())){ %>
+        	<a href="/Farmstory1/board/proc/deleteProc.jsp?seq=<%= article.getSeq() %>&uri=<%= uri %>" class="btnDelete">삭제</a>
+       		<a href="<%= uri %>?mode=m&seq=<%= article.getSeq() %>" class="btnModify">수정</a>
+     	<% } %>
+        <a href="<%= uri %>" class="btnList">목록</a>
     </div>  
     
     <!-- 댓글리스트 -->
  <section class="commentList">
      <h3>댓글목록</h3>
+     
+     <% for(ArticleBean comment : comments){ %> 
      <article class="comment">
          <span>
-             <span>길동이</span>
-             <span>20-05-13</span>
+             <span><%= comment.getNick() %></span>
+             <span><%= comment.getRdate().substring(2, 10) %></span>
          </span>
-         <textarea name="comment" readonly>댓글 샘플입니다.</textarea>
+         <textarea name="comment" readonly data-seq="<%= comment.getSeq() %>"><%= comment.getContent() %></textarea>
+         
+         <% if(uid.equals(comment.getUid())){ %>
          <div>
-             <a href="#">삭제</a>
-             <a href="#">수정</a>
+              <a href="/Farmstory1/board/proc/deleteCommentProc.jsp?parent=<%= comment.getParent() %>&seq=<%= comment.getSeq() %>" class="btnCommentDel">삭제</a>
+	          <a href="#" class="btnCommentModify">수정</a>
+	          <a href="#" class="btnCommentCancel">취소</a>
          </div>
+         <% } %>
+         
      </article>
-     <p class="empty">
-         등록된 댓글이 없습니다.
-     </p>
- </section>
+     <% } %>
+     
+     
+     <% if(comments.size() == 0){ %>
+       	<p class="empty">등록된 댓글이 없습니다.</p>
+     <% } %>
+  </section>
 
  <!-- 댓글입력폼 -->
  <section class="commentForm">
      <h3>댓글쓰기</h3>
-     <form action="#">
-         <textarea name="comment"></textarea>
+     <form action="/Farmstory1/board/proc/insertCommentProc.jsp" method="post">
+     		<input type="hidden" name="parent" value="<%= article.getSeq() %>" />
+        	<input type="hidden" name="uid" value="<%= uid %>" />
+        	<input type="hidden" name="uri" value="<%= uri %>" />
+     
+       <textarea name="content"></textarea>
          <div>
              <a href="#" class="btnCancel">취소</a>
              <input type="submit" class="btnWrite" value="작성완료"/>

@@ -1,8 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_header.jsp" %>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+<script src="/Farmstory1/js/checkUser.js"></script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/Farmstory1/js/zipcode.js"></script>
+<script src="/Farmstory1/js/validation.js"></script>
+
  <section id="user" class="register">
-     <form action="#" method="POST">
+     <form action="/Farmstory1/user/proc/registerProc.jsp" method="POST">
          <table border="1">
              <caption>사이트 이용정보 입력</caption>
              <tr>
@@ -58,14 +65,14 @@
                  <td>주소</td>
                  <td>
                      <div>
-                         <input type="text" name="zip" placeholder="우편번호" readonly/>
-                         <button class="btnZip">주소검색</button>
+                         <input type="text" id="zip" name="zip" placeholder="우편번호" readonly/>
+                         <button type="button" class="btnZip" onclick="zipcode()">주소검색</button>
                      </div>                            
                      <div>
-                         <input type="text" name="addr1" placeholder="주소를 검색하세요." readonly/>
+                         <input type="text" id="addr1" name="addr1" placeholder="주소를 검색하세요." readonly/>
                      </div>
                      <div>
-                         <input type="text" name="addr2" placeholder="상세주소를 입력하세요."/>
+                         <input type="text" id="addr2" name="addr2" placeholder="상세주소를 입력하세요."/>
                      </div>
                  </td>
              </tr>
@@ -73,7 +80,7 @@
 
          <div>
              <a href="/Farmstory1/user/login.jsp" class="btnCancel">취소</a>
-             <input type="submit"   class="btnJoin" value="회원가입"/>
+             <input type="submit" class="btnJoin" value="회원가입"/>
          </div>
 
      </form>

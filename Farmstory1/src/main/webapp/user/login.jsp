@@ -3,7 +3,7 @@
 
 
         <section id="user" class="login">
-            <form action="/Farmstory1/board/list.jsp">
+            <form action="/Farmstory1/user/proc/loginProc.jsp" method="post">
                 <table border="0">
                     <tr>
                         <td><img src="../img/login_ico_id.png" alt="아이디"/></td>
