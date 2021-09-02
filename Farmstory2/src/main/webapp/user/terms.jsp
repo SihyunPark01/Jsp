@@ -8,7 +8,7 @@
 <%@ include file="../_header.jsp" %>
 
 <%
-	String host = "jdbc:mysql://54.180.160.240:3306/maro02260226";
+	String host = "jdbc:mysql://54.180.160.240/maro02260226";
 	String user = "maro02260226";
 	String pass = "1234";
 
@@ -112,8 +112,8 @@
                 </tr>
             </table>
             <div>
-                <a href="/Farmstory1/user/login.jsp">취소</a>
-                <a href="/Farmstory1/user/register.jsp">다음</a>
+                <a href="/Farmstory2/user/login.jsp">취소</a>
+                <a href="/Farmstory2/user/register.jsp">다음</a>
             </div>
         </section>
 

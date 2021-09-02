@@ -25,7 +25,7 @@
 	    			
 	    			//DB에서 가져와서 아이디 있는지 없는지 확인해봐야하는 작업
 	    			$.ajax({
-	    				url: '/Farmstory1/user/proc/checkUid.jsp?uid='+uid,
+	    				url: '/Farmstory2/user/proc/checkUid.jsp?uid='+uid,
 	    				type: 'get',
 	    				dataType: 'json',
 	    				success: function(data){
@@ -83,6 +83,7 @@
 					
 					if(reName.test(name)){
 						isNameOk = true;
+						$('.resultName').text('');
 					}else{
 						$('.resultName').css('color','red').text('이름이 유효하지 않습니다.');
 						isNameOk = false;
@@ -90,10 +91,7 @@
 					
 									
 				});
-				
-				
-				
-	  		
+			
 	    		//닉네임 중복 체크
 	    		$('input[name=nick]').focusout(function(){
 	    			
@@ -101,7 +99,7 @@
 	    			
 	    			//DB에서 가져와서 아이디 있는지 없는지 확인해봐야하는 작업
 	    			$.ajax({
-	    				url: '/Farmstory1/user/proc/checkNick.jsp?nick='+nick,
+	    				url: '/Farmstory2/user/proc/checkNick.jsp?nick='+nick,
 	    				type: 'get',
 	    				dataType: 'json',
 	    				success: function(data){
@@ -130,16 +128,20 @@
 	    		$('input[name=email]').focusout(function(){
 	    			
 	    			var email = $(this).val();
+
+					if(email == ''){
+						$('.resultEmail').text('');
+						return;
+					}
 	    			
 	    			//DB에서 가져와서 아이디 있는지 없는지 확인해봐야하는 작업
 	    			$.ajax({
-	    				url: '/Farmstory1/user/proc/checkEmail.jsp?email='+email,
+	    				url: '/Farmstory2/user/proc/checkEmail.jsp?email='+email,
 	    				type: 'get',
 	    				dataType: 'json',
 	    				success: function(data){
 	    					
 	    					if(data.result == 1){
-	    						// alert('이미 사용중인 아이디 입니다.');
 	    						$('.resultEmail').css('color', 'red').text('이미 사용중인 이메일 입니다.');
 	    					}else{
 	    						$('.resultEmail').css('color', 'green').text('사용 가능한 이메일 입니다.');
@@ -156,13 +158,12 @@
 	    			
 	    			//DB에서 가져와서 아이디 있는지 없는지 확인해봐야하는 작업
 	    			$.ajax({
-	    				url: '/Farmstory1/user/proc/checkHp.jsp?hp='+hp,
+	    				url: '/Farmstory2/user/proc/checkHp.jsp?hp='+hp,
 	    				type: 'get',
 	    				dataType: 'json',
 	    				success: function(data){
 	    					
 	    					if(data.result == 1){
-	    						
 	    						$('.resultHp').css('color', 'blue').text('이미 사용중인 번호입니다.');
 	    					}else{
 	    						$('.resultHp').css('color', 'gray').text('사용 가능한 번호입니다.');

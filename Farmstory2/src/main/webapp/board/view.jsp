@@ -131,7 +131,7 @@
         <tr>
             <td>첨부파일</td>
             <td>
-                <a href="#"><%= article.getFb().getOriName() %></a>
+                <a href="/Farmstory2/board/proc/download.jsp?group=<%=group%>&cate=<%=cate%>&fseq=<%= article.getFb().getFseq() %>"><%= article.getFb().getOriName() %></a>
                 <span><%= article.getFb().getDownload() %>회 다운로드</span>
             </td>
         </tr>
@@ -145,10 +145,10 @@
     </table>
     <div>
         <% if(uid.equals(article.getUid())){ %>
-        	<a href="/Farmstory2/board/proc/deleteProc.jsp?seq=<%= article.getSeq() %>" class="btnDelete">삭제</a>
-       		<a href="/Farmstory2/board/write.jsp?seq=<%= article.getSeq() %>" class="btnModify">수정</a>
+        	<a href="/Farmstory2/board/proc/deleteProc.jsp?group=<%=group%>&cate=<%=cate %>&seq=<%= article.getSeq() %>" class="btnDelete">삭제</a>
+       		<a href="/Farmstory2/board/write.jsp?group=<%=group%>&cate=<%=cate %>&seq=<%= article.getSeq() %>" class="btnModify">수정</a>
      	<% } %>
-        <a href="/Farmstory2/board/list.jsp?seq=<%= article.getSeq() %>" class="btnList">목록</a>
+        <a href="/Farmstory2/board/list.jsp?group=<%=group%>&cate=<%=cate %>&seq=<%= article.getSeq() %>" class="btnList">목록</a>
     </div>  
     
     <!-- 댓글리스트 -->
@@ -165,9 +165,9 @@
          
          <% if(uid.equals(comment.getUid())){ %>
          <div>
-              <a href="/Farmstory2/board/proc/deleteCommentProc.jsp?parent=<%= comment.getParent() %>&seq=<%= comment.getSeq() %>" class="btnCommentDel">삭제</a>
+              <a href="/Farmstory2/board/proc/deleteCommentProc.jsp?group=<%=group%>&cate=<%=cate%>&parent=<%= comment.getParent() %>&seq=<%= comment.getSeq() %>" class="btnCommentDel">삭제</a>
 	          <a href="#" class="btnCommentModify">수정</a>
-	          <a href="#" class="btnCommentCancel">취소</a>
+	          <a href="/Farmstory2/board/view.jsp?group=<%=group%>&cate=<%=cate%>&parent=<%= comment.getParent() %>&seq=<%= comment.getSeq() %>"" class="btnCommentCancel">취소</a>
          </div>
          <% } %>
          
@@ -183,13 +183,13 @@
  <!-- 댓글입력폼 -->
  <section class="commentForm">
      <h3>댓글쓰기</h3>
-     <form action="/Farmstory2/board/proc/insertCommentProc.jsp" method="post">
+     <form action="/Farmstory2/board/proc/insertCommentProc.jsp?group=<%=group%>&cate=<%=cate%>" method="post">
      		<input type="hidden" name="parent" value="<%= article.getSeq() %>" />
         	<input type="hidden" name="uid" value="<%= uid %>" />
         	     
        <textarea name="content"></textarea>
          <div>
-             <a href="/Farmstory2/board/view.jsp?seq=<%= article.getSeq() %>" class="btnCancel">취소</a>
+             <a href="/Farmstory2/board/view.jsp?group=<%=group%>&cate=<%=cate%>&seq=<%= article.getSeq() %>" class="btnCancel">취소</a>
              <input type="submit" class="btnWrite" value="작성완료"/>
          </div>
      </form>

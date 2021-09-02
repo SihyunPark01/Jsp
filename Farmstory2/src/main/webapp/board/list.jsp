@@ -89,7 +89,9 @@
 		</div>
 
       <!-- 글쓰기 버튼 -->
+     
       <a href="/Farmstory2/board/write.jsp?group=<%= group %>&cate=<%= cate %>" class="btnWrite">글쓰기</a>
+    
    </section>
           
          		 <!--내용 끝-->

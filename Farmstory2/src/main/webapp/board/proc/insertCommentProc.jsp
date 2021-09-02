@@ -6,7 +6,9 @@
 	String parent  = request.getParameter("parent");
 	String content = request.getParameter("content");
 	String uid     = request.getParameter("uid");
-	
+	String group     = request.getParameter("group");
+	String cate   = request.getParameter("cate");
+
 	String regip   = request.getRemoteAddr();
 	
 	ArticleBean ab = new ArticleBean();
@@ -21,5 +23,5 @@
 	ArticleDao.getInstance().updateCommentCount(parent, +1);
 	
 	// 리다이렉트
-	response.sendRedirect("seq="+parent);
+	response.sendRedirect("/Farmstory2/board/view.jsp?group="+group+"&cate="+cate+"&seq="+parent);
 %>
