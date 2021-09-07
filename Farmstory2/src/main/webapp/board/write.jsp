@@ -1,13 +1,18 @@
 <%@page import="kr.co.farmstory2.bean.MemberBean"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ include file="../_header.jsp" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String group = request.getParameter("group");
 	String cate = request.getParameter("cate");
 	String includeFile = "./_aside" +group+ ".jsp"; 
+	
+	if(mb == null){
+		response.sendRedirect("/Farmstory2/user/login.jsp");
+		return;
+	}
 %>
-<%@ include file="../_header.jsp" %>
+
 <jsp:include page="<%= includeFile %>">
 	<jsp:param name="cate" value="<%= cate %>"/>
 </jsp:include>
