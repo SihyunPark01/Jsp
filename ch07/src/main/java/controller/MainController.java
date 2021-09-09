@@ -82,6 +82,7 @@ public class MainController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		requestProc(req, resp);
 	
 	}
@@ -93,6 +94,7 @@ public class MainController extends HttpServlet {
 		String path = req.getContextPath();
 		String uri = req.getRequestURI();
 		String key = uri.substring(path.length());
+		
 
 		
 		// Map에서 Service 객체 꺼내기
@@ -104,12 +106,20 @@ public class MainController extends HttpServlet {
 		//***CommonService service = (CommonService) instance;
  		
 		
-		// Service 객체 실행 후 View정보 리턴 받기
-		String view = instance.requestProc(req, resp); //requestProc어디 있는 클래스인지 찾아봐 그럼 리턴값 String view(hello.jsp ...)임을 알 수 있음
+		// Service 객체 실행 후 결과 정보 리턴 받기
+		String result = instance.requestProc(req, resp); //requestProc어디 있는 클래스인지 찾아봐 그럼 리턴값 String view(hello.jsp ...)임을 알 수 있음
 		
-		// 해당 View로 forward 하기
-		RequestDispatcher dispatcher = req.getRequestDispatcher(view);
-		dispatcher.forward(req, resp);
+		if(result.startsWith("redirect:")) {
+			//리다이렉트
+			//String ctxPath = req.getContextPath(); //리다이렉트에 "/ch07"을 추가하는대신 범용경로를 넣어주는게 좋다
+			String redirecUrl = result.substring(9);
+			resp.sendRedirect(path+redirecUrl); //위에 path이미 있어서
+			
+		}else {
+			// 해당 View로 forward 하기
+			RequestDispatcher dispatcher = req.getRequestDispatcher(result);
+			dispatcher.forward(req, resp);
+		}
 	}
 	
 	
