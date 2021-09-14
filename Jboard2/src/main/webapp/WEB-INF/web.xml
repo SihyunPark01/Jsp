@@ -22,8 +22,6 @@
   	<url-pattern>*.do</url-pattern> 
   </servlet-mapping>
 
-
-  
   <!-- 모델2 보안설정 -->
   <security-constraint>
   	<display-name>Prohibit Model1</display-name>
@@ -35,6 +33,18 @@
   		<role-name>nobody</role-name>
   	</auth-constraint>
   </security-constraint>
+  
+  
+  <!-- 인덱스 페이지 -->
+  <security-constraint>
+  	<web-resource-collection>
+  		<web-resource-name>free pages</web-resource-name>
+  		<url-pattern>/index.jsp</url-pattern>
+  	</web-resource-collection>
+  </security-constraint>
+  
+  
+  
   
   <!-- 문자셋 인코딩 필터 등록 -->
   <filter>

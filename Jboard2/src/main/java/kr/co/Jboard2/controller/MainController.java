@@ -2,6 +2,7 @@ package kr.co.Jboard2.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -107,7 +108,16 @@ public class MainController extends HttpServlet {
 			String redirecUrl = result.substring(9);
 			resp.sendRedirect(path+redirecUrl); //위에 path이미 있어서
 			
+		//json파일받기
+		}else if(result.startsWith("json:")){
+			//Json 출력
+			PrintWriter out = resp.getWriter();
+			out.print(result.substring(5));
+			
+			
+			
 		}else {
+		
 			// 해당 View로 forward 하기
 			RequestDispatcher dispatcher = req.getRequestDispatcher(result);
 			dispatcher.forward(req, resp);
