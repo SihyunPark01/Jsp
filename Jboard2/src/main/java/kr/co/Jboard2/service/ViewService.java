@@ -7,6 +7,11 @@ public class ViewService implements CommonService{
 
 	@Override
 	public String requestProc(HttpServletRequest req, HttpServletResponse resp) {
+		
+		
+		
+		
+		
 		return "/view.jsp";
 	}
 

@@ -1,26 +1,62 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="/Jboard2/css/style.css"/>
+    
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  	<script src="/Jboard2/js/zipcode.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
     
-  	//정규표현식(Regular Expression) /^ [   ] $/ 서칭해서 붙여넣으면 됨.
+	//정규표현식(Regular Expression) /^ [   ] $/ 서칭해서 붙여넣으면 됨.
     var reUid = /^[a-z]+[a-z0-9]{3,10}$/; //3,10도 붙어적어야함!!! //아이디 - 영문소문자 + 영문소문자, 숫자 를 4자리에서 10자리까지만 입력가능
     var rePass = /^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$/;
     var reName = /^[가-힣]{2,10}$/;
     var reNick = /^[a-z가-힣0-9]{2,10}$/;
-
 
     //최종 유효성 검사에 사용될 상태변수
     var isUidOk = false;
     var isPassOk = false;
     var isNameOk = false;
     var isNickOk = false;
-
+  	
+    $(document).ready(function(){
+	 		
+	 		$('.register > form').submit(function(){
+	 			
+	 			if(!isUidOk){ // 
+	 				alert('아이디가 유효하지 않습니다. 다시 입력하세요.');
+	 				return false; //false : 서버로 전송 취소, 막음. 
+	 			}
+	 			
+	 			if(!isPassOk){
+	 				alert('비밀번호가 유효하지 않습니다. 다시 입력하세요.');
+	 				return false; //false : 서버로 전송 취소, 막음. 
+	 			}
+	 			
+	 			if(!isNameOk){
+	 				alert('이름이 유효하지 않습니다. 다시 입력하세요.');
+	 				return false; //false : 서버로 전송 취소, 막음. 
+	 			}
+	 			
+	 			if(!isNickOk){
+	 				alert('닉네임이 유효하지 않습니다. 다시 입력하세요.');
+	 				return false; //false : 서버로 전송 취소, 막음. 
+	 			}
+	 			
+	 			return true; //true : 전송하기
+	 			
+	 		});
+	 		
+	 	});
+  
+    
+    
     
     	$(function(){
 			
@@ -150,7 +186,7 @@
     			
     			//DB에서 가져와서 아이디 있는지 없는지 확인해봐야하는 작업
     			$.ajax({
-    				url: '/Jboard2/user/checkHp.jsp?hp='+hp,
+    				url: '/Jboard2/user/checkHp.do?hp='+hp,
     				type: 'get',
     				dataType: 'json',
     				success: function(data){
@@ -168,50 +204,7 @@
     		});
     		
 		});
-      
-    	//Validation(유효성 검증)
-  	 	$(document).ready(function(){
-  	 		
-  	 		$('.register > form').submit(function(){
-  	 			
-  	 			if(!isUidOk){ // 
-  	 				alert('아이디가 유효하지 않습니다. 다시 입력하세요.');
-  	 				return false; //false : 서버로 전송 취소, 막음. 
-  	 			}
-  	 			
-  	 			if(!isPassOk){
-  	 				alert('비밀번호가 유효하지 않습니다. 다시 입력하세요.');
-  	 				return false; //false : 서버로 전송 취소, 막음. 
-  	 			}
-  	 			
-  	 			if(!isNameOk){
-  	 				alert('이름이 유효하지 않습니다. 다시 입력하세요.');
-  	 				return false; //false : 서버로 전송 취소, 막음. 
-  	 			}
-  	 			
-  	 			if(!isNickOk){
-  	 				alert('닉네임이 유효하지 않습니다. 다시 입력하세요.');
-  	 				return false; //false : 서버로 전송 취소, 막음. 
-  	 			}
-  	 			
-  	 			return true; //true : 전송하기
-  	 			
-  	 		});
-  	 		
-  	 	});
-  
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
     </script>
-    
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  	<script src="/Jboard2/js/zipcode.js"></script>
   
 </head>
 <body>
@@ -277,7 +270,7 @@
                         <td>
                             <div>
                                 <input type="text" name="zip" placeholder="우편번호" readonly/>
-                                <button class="btnZip">주소검색</button>
+                                <button type="button" class="btnZip" onclick="zipcode()">주소검색</button>
                             </div>                            
                             <div>
                                 <input type="text" name="addr1" placeholder="주소를 검색하세요." readonly/>
