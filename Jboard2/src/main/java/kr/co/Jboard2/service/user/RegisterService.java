@@ -26,7 +26,7 @@ public class RegisterService implements CommonService{
 			String addr2 = req.getParameter("addr2");
 			String regip = req.getRemoteAddr();
 			
-			//Dao불러오기
+			
 			MemberVo vo = new MemberVo();
 			vo.setUid(uid);
 			vo.setPass(pass2);
@@ -40,7 +40,7 @@ public class RegisterService implements CommonService{
 			vo.setRegip(regip);
 			
 			
-			
+			//Dao불러오기
 			MemberDao.getInstance().insertMember(vo);
 					
 			return "redirect:/user/login.do";

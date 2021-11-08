@@ -6,13 +6,8 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="/Jboard2/css/style.css"/>
-    
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  	<script src="/Jboard2/js/zipcode.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-    
 	//정규표현식(Regular Expression) /^ [   ] $/ 서칭해서 붙여넣으면 됨.
     var reUid = /^[a-z]+[a-z0-9]{3,10}$/; //3,10도 붙어적어야함!!! //아이디 - 영문소문자 + 영문소문자, 숫자 를 4자리에서 10자리까지만 입력가능
     var rePass = /^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$/;
@@ -54,9 +49,6 @@
 	 		});
 	 		
 	 	});
-  
-    
-    
     
     	$(function(){
 			
@@ -205,7 +197,8 @@
     		
 		});
     </script>
-  
+   	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  	<script src="/Jboard2/js/zipcode.js"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -273,10 +266,10 @@
                                 <button type="button" class="btnZip" onclick="zipcode()">주소검색</button>
                             </div>                            
                             <div>
-                                <input type="text" name="addr1" placeholder="주소를 검색하세요." readonly/>
+                                <input type="text" id="addr1" name="addr1" placeholder="주소를 검색하세요." readonly/>
                             </div>
                             <div>
-                                <input type="text" name="addr2" placeholder="상세주소를 입력하세요."/>
+                                <input type="text" id="addr1" name="addr2" placeholder="상세주소를 입력하세요."/>
                             </div>
                         </td>
                     </tr>

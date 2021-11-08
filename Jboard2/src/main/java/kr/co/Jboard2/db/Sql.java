@@ -60,7 +60,7 @@ public class Sql {
 	public static final String SELECT_ARTICLE = "SELECT * FROM `Jboard_article` AS a "
 												+ "	LEFT JOIN `Jboard_file` AS b ON a.seq = b.parent "
 												+ "WHERE `seq`=?;";
-	//left join을 잘 이해하자. left에 기본적으로 나와야할놈을 넣고 오른쪽에는 파일테이블(파일은 첨부될수도 있고 없을수도 있으니까)
+	//left join을 잘 이해하자. left에 기본적으로 나와야할 놈을 넣고 오른쪽에는 파일테이블(파일은 첨부될수도 있고 없을수도 있으니까)
 	//결국엔 쿼리문이 관건. 쿼리문이 중요하네.
 	
 	

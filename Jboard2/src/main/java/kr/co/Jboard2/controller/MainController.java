@@ -1,8 +1,12 @@
 package kr.co.Jboard2.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.Jboard2.service.CommonService;
+import kr.co.Jboard2.vo.FileVo;
 
 
 public class MainController extends HttpServlet {
@@ -113,8 +118,39 @@ public class MainController extends HttpServlet {
 			//Json 출력
 			PrintWriter out = resp.getWriter();
 			out.print(result.substring(5));
+		
+		}else if(result.startsWith("file:")) {
+
+			//Service에서 저장한 FileVo 객체 Controller에서 꺼내기 
+			FileVo fvo = (FileVo) req.getAttribute("fvo");
 			
+			// response 헤더 수정 - 이건 코딩 대신 검색해서 해야하는 작업
+			resp.setContentType("application/octet-stream");
+			resp.setHeader("Content-Disposition", "attachment; filename="+URLEncoder.encode(fvo.getOriName(), "utf-8"));
+			resp.setHeader("Content-Transfer-Encoding", "binary");
+			resp.setHeader("Pragma", "no-cache");
+			resp.setHeader("Cache-Control", "private");	
 			
+			// response 객체 파일 스트림 작업 - oriName으로 다운로드 받을 수 있도록
+			String filePath = req.getServletContext().getRealPath("/file");
+			File file = new File(filePath+"/"+fvo.getNewName()); //filedownloadService에서 파일새이름 구해야함
+			
+			//stream - 데이터 이동 통로 (캡쳐설명) , 다쓰고나면 연결해제 해야함
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+			BufferedOutputStream bos = new BufferedOutputStream(resp.getOutputStream());
+			
+			while(true){
+				
+				int data = bis.read();
+				
+				//더이상 읽을 데이터가 없을 경우
+				if(data == -1){
+					break; 
+				}
+				bos.write(data);
+			}
+			bos.close();
+			bis.close();
 			
 		}else {
 		
